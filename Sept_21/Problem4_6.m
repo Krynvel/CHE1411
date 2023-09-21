@@ -1,4 +1,5 @@
-N=input("How much Money");
+%N=input("How much Money");
+N=5000;
 Money=1000;
 Year=1;
 
