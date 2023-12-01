@@ -19,7 +19,7 @@ P = 1.31;                  % Pressure in atm
 % (P)*(v^3) - (P*b + R*T)*(v^2) + (a)*v - a*b = 0
 % a = 0.42188*(((R^2)*(Tc^2))/(Pc))
 % b = 0.125*((R*Tc)/Pc)
-z_vdw = vanderwaal(T,Tc,Pc,R,P);
+z_vdw = vanderwaal(T,Tc,Pc,R);
 
 % Redlich-Kwong:
 % (P)*v^3 - (R*T)*v^2 + (a - P*(b^2) - R*T*b)*v - a*b = 0
@@ -27,7 +27,7 @@ z_vdw = vanderwaal(T,Tc,Pc,R,P);
 % b = 0.08664*((R*Tc)/Pc)
 % alpha = (1/(Tr^0.5))
 % Tr = T/Tc
-z_rk = redlichkwong(T,Tc,Pc,R,P);
+z_rk = redlichkwong(T,Tc,Pc,R);
 
 % Peng-Robinson:
 % (P)*(v^3) + (b*P - R*T)*(v^2) + (a - 3*P*(b^2) - 2*R*T*b)*v + (P*(b^3) +
@@ -38,7 +38,7 @@ z_rk = redlichkwong(T,Tc,Pc,R,P);
 % Tr = T/Tc
 % m = 0.37464 + 1.54226*w - 0.26992*(w^2)
 % w = 0.193
-z_pr = pengrobinson(T,Tc,Pc,R,P);
+z_pr = pengrobinson(T,Tc,Pc,R);
 
 % HINTS:
 % 1. Make P, Pc, T, Tc, and R global variables
