@@ -11,7 +11,7 @@ T = 500;                   % Temperature in K
 Tc = 425.2;                % Critical temperature in K
 Pc = 37.5;                 % Critical pressure in atm
 R = 0.08206;               % Gas constant L*atm/mol*K)
-P = 1.31;                  % Pressure in atm
+P = 1:31;                  % Pressure in atm
 
 % Equations of State:
 
@@ -19,7 +19,8 @@ P = 1.31;                  % Pressure in atm
 % (P)*(v^3) - (P*b + R*T)*(v^2) + (a)*v - a*b = 0
 % a = 0.42188*(((R^2)*(Tc^2))/(Pc))
 % b = 0.125*((R*Tc)/Pc)
-z_vdw = vanderwaal(T,Tc,Pc,R);
+for P=1:31
+z_vdw(P) = vanderwaal(T,Tc,Pc,R, P);
 
 % Redlich-Kwong:
 % (P)*v^3 - (R*T)*v^2 + (a - P*(b^2) - R*T*b)*v - a*b = 0
@@ -27,7 +28,7 @@ z_vdw = vanderwaal(T,Tc,Pc,R);
 % b = 0.08664*((R*Tc)/Pc)
 % alpha = (1/(Tr^0.5))
 % Tr = T/Tc
-z_rk = redlichkwong(T,Tc,Pc,R);
+z_rk(P) = redlichkwong(T,Tc,Pc,R,P);
 
 % Peng-Robinson:
 % (P)*(v^3) + (b*P - R*T)*(v^2) + (a - 3*P*(b^2) - 2*R*T*b)*v + (P*(b^3) +
@@ -38,7 +39,7 @@ z_rk = redlichkwong(T,Tc,Pc,R);
 % Tr = T/Tc
 % m = 0.37464 + 1.54226*w - 0.26992*(w^2)
 % w = 0.193
-z_pr = pengrobinson(T,Tc,Pc,R);
+z_pr(P) = pengrobinson(T,Tc,Pc,R, P);
 
 % HINTS:
 % 1. Make P, Pc, T, Tc, and R global variables
@@ -47,6 +48,8 @@ z_pr = pengrobinson(T,Tc,Pc,R);
 % method to determine
 % 4. Use the root to calculate the compressibility factor
 % 5. Plot the compressibility factor verses pressure
+end
+P=1:31;
 
 
 % Note:
@@ -54,12 +57,12 @@ z_pr = pengrobinson(T,Tc,Pc,R);
 % etc. 
 
 %% 
-plot(P,z_vdw,'*')
+plot(P,z_vdw)
 grid on
 hold on
-plot(P,z_rk,'*')
+plot(P,z_rk)
 hold on
-plot(P,z_pr,'*')
+plot(P,z_pr)
 title('Pressure vs. Compressibility Factor')
 xlabel('Pressure [atm]')
 ylabel('Compressibility Factor [z = PV/RT]')
